@@ -2,10 +2,10 @@
 import numpy as np
 
 
-def gauss_elimination(equations, process = False):
+def gauss_elimination(equations, process = False, names = None):
     n = len(equations); eq = equations.copy()
 
-    if process: print_equations(eq)
+    if process: print_equations(eq, names)
 
     for i in range(n - 1):
         
@@ -22,7 +22,7 @@ def gauss_elimination(equations, process = False):
 
         if process:
             print("Step:", i + 1)
-            print_equations(eq)
+            print_equations(eq, names)
 
     ans = [0 for _ in range(n)]
 
@@ -82,12 +82,20 @@ def check_ans(equations, ans, tol=1e-6):
     return True
 
 
-def print_equations(equations):
+def print_equations(equations, names = None):
     print()
-    n = len(equations)
-    for i in range(n):
-        for j in range(n):
-            print(f'{equations[i][j]}x{j}', end=' ')
-            if j < n - 1: print('+', end=' ')
-        print('=', equations[i][-1])
+    if names is None:
+        n = len(equations)
+        for i in range(n):
+            for j in range(n):
+                print(f'{equations[i][j]}x{j}', end=' ')
+                if j < n - 1: print('+', end=' ')
+            print('=', equations[i][-1])
+    else:
+        n = len(equations)
+        for i in range(n):
+            for j in range(n):
+                print(f'{equations[i][j]}{names[j]}', end=' ')
+                if j < n - 1: print('+', end=' ')
+            print('=', equations[i][-1])
     print()
